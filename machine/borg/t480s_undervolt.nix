@@ -8,6 +8,5 @@
 # undervolt 4 'Analog I/O' 0
 
   services.undervolt.enable = true;
-  services.undervolt.coreOffset = "-100";
-  services.undervolt.gpuOffset = "-100";
+  services.undervolt.coreOffset = -50;
 }

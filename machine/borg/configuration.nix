@@ -8,7 +8,8 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./borg_tlp.nix
+      ./t480s_tlp.nix
+      ./t480s_undervolt.nix
     ];
 
 
@@ -52,11 +53,8 @@
     extundelete
   ];
 
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
-
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 22 ];
+  networking.firewall.allowedTCPPorts = [ ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
@@ -64,16 +62,22 @@
   hardware.opengl.enable = true;
   services.acpid.enable = true;
 
-
   security.pam.services.swaylock = {
     text = ''
       auth include login
     '';
   };
 
+  # Enable sound.
+  # sound.enable = true;
   hardware.pulseaudio = {
     enable = true;
+
+    package = pkgs.pulseaudioFull;
   };
+
+  hardware.bluetooth.enable = true;
+  services.blueman.enable = true;
 
   virtualisation.libvirtd = {
     enable = true;
