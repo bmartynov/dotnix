@@ -12,6 +12,7 @@
     programs.zsh.oh-my-zsh = {
         enable = true;
         plugins = ["git" "kubectl"];
+        theme = "kardan";
     };
 
     # tmux 

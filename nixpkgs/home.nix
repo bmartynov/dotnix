@@ -17,6 +17,7 @@
     ./git.nix
 
     ./user-dirs.nix
+    ./session_variables.nix
   ];
 
   nixpkgs.config = {
@@ -24,6 +25,8 @@
   };
 
   fonts.fontconfig.enable = true;
+
+  services.blueman-applet.enable = true;
 
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
@@ -35,7 +38,11 @@
     slack
     swaylock
     dconf
-    
+
+    keepassxc
+
+    pavucontrol
+
     grim
     wf-recorder
 
@@ -44,9 +51,43 @@
     firefox
     jetbrains.goland
 
+
+    google-chrome
+
     virt-manager
 
     graphviz
+
+    xmind
+    libreoffice
+    
+    gcc10
+    pkg-config
+    openssl
+    cmake
+    zlib
+    pkgconfig
+
+    # python stuff
+    pipenv
+    python38Full
+    python38Packages.ipython
+    python38Packages.pip
+    python38Packages.pip-tools
+    python38Packages.rope
+    
+    # go stuff
+    go_1_15
+
+    # rust stuff
+    rustup
+
+    bat
+    exa
+    fd
+    hyperfine
+    ripgrep
+    tokei
 
     # fonts
     hack-font
@@ -57,6 +98,11 @@
     noto-fonts-emoji
     iosevka
     jetbrains-mono
+    font-awesome_5
+
+
+
+    redis-desktop-manager
   ];
 
   # This value determines the Home Manager release that your

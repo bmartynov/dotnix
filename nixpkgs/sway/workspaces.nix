@@ -24,10 +24,14 @@ let
         xterm = "XTerm";
         pidgin = "Pidgin";
         slack = "Slack";
-        telegram = "TelegramDesktop";
+        telegram = "telegramdesktop";
+        alacritty = "Alacritty";
     };
 in {
+    kv = workspaces;
+    
     all = with workspaces; [db w1 w2 w3 w4 w5 ide web term im];
+    
     assigns = with criteria; with workspaces; {
         "${ide}" = [
             { class = code; } 
@@ -37,15 +41,16 @@ in {
             { class = goland; }
         ];
         "${web}" = [
-            { class = firefox; }
+            { app_id = firefox; }
             { class = google_chrome; }
         ];
         "${term}" = [
             { class = xterm; }
+            { app_id = alacritty; }
         ];
         "${im}" = [
             { class = slack; }
-            { class = telegram; }
+            { app_id = telegram; }
         ];
     };
 }

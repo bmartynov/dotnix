@@ -12,4 +12,6 @@
     # brightness control
     brightness_raise = ''brightnessctl   set     +2%'';
     brightness_lower = ''brightnessctl   set     2%-'';
+
+    waybar = "waybar";
 }

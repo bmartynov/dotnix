@@ -8,11 +8,18 @@ let
     applications = import ./applications.nix {};
 
     font = "Ubuntu Mono";
+    
     internal_display = "eDP-1";
-    external_display = "Goldstar Company Ltd LG HDR 4K 0x000007AD";
+
+    external_display_lg_4k = "Goldstar Company Ltd LG HDR 4K 0x000007AD";
+    external_display_edp2 = "eDP-2";
+
     wallpaper = "~/.local/share/wallpaper/thinkpad-t480s.png fill";
 
-    startup = [ { command = applications.notification_daemon; } ];
+    startup = [ 
+        { command = applications.notification_daemon; } 
+        # { command = "waybar"; } 
+    ];
     input = {"*" = {
         "xkb_layout" = "us,ru";
         "xkb_options" = "grp:caps_toggle,grp_led:caps";
@@ -20,13 +27,11 @@ let
 
     output = {
         "*" = { bg = wallpaper; };
-        external_display = { mode = "2560x1440@60Hz"; };
+        "${external_display_lg_4k}" = { mode = "2560x1440@60Hz"; };
     };
 
     bars = [{
-        id = "bar-0";
-        mode = "hide";
-        fonts = ["${font} 12"];
+        "command" = "${applications.waybar}";
     }];
 
     cfg = config.wayland.windowManager.sway.config;
@@ -51,6 +56,29 @@ let
     workspace_binds = (merge (imap0 workspace_switch workspaces.all)) // 
                       (merge (imap0 workspace_move workspaces.all));
 in {
+
+    programs.waybar.enable = true;
+    programs.waybar.settings = [
+        {
+            layer = "top";
+            position = "top";
+            height = 24;
+            output = [
+                "${internal_display}"
+            ];
+            modules-left = [ "sway/workspaces" "sway/mode" ];
+            modules-center = [ "sway/window" ];
+            modules-right = [ "cpu" "battery" "clock" "tray" ];
+            modules = {
+                "sway/workspaces" = {
+                    disable-scroll = true;
+                    all-outputs = true;
+                };
+            };
+        }
+    ];
+    
+
     wayland.windowManager.sway.enable                   = true;
     wayland.windowManager.sway.config.modifier          = "Mod4";
     wayland.windowManager.sway.config.bindkeysToCode    = true;
@@ -129,5 +157,22 @@ in {
     # lock screen on lid open
     bindswitch lid:on exec ${lock}
     exec ${notification_daemon}
+
+
+    workspace ${workspaces.kv.w1} output "${internal_display}"
+    workspace ${workspaces.kv.w2} output "${internal_display}"
+    workspace ${workspaces.kv.w3} output "${internal_display}"
+    workspace ${workspaces.kv.w4} output "${internal_display}"
+    workspace ${workspaces.kv.w5} output "${internal_display}"
+    workspace ${workspaces.kv.im} output "${internal_display}"
+    workspace ${workspaces.kv.db} output "${internal_display}"
+
+    workspace ${workspaces.kv.ide} output "${external_display_edp2}"
+    workspace ${workspaces.kv.web} output "${external_display_edp2}"
+    workspace ${workspaces.kv.term} output "${external_display_edp2}"
+
+    workspace ${workspaces.kv.ide} output "${external_display_lg_4k}"
+    workspace ${workspaces.kv.web} output "${external_display_lg_4k}"
+    workspace ${workspaces.kv.term} output "${external_display_lg_4k}"
     '';
 }
