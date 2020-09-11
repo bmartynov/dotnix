@@ -1,4 +1,4 @@
-{ stdenv, buildGoModule, fetchgit, fetchhg, fetchbzr, fetchsvn, lib, }:
+{ stdenv, buildGoModule, fetchgit, lib, }:
 
 buildGoModule rec {
   name = "grpc-gateway-${version}";

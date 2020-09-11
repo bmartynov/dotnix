@@ -1,4 +1,4 @@
-{ stdenv, buildGoModule, fetchgit, fetchhg, fetchbzr, fetchsvn, lib }:
+{ stdenv, buildGoModule, fetchgit, lib }:
 
 buildGoModule rec {
   name = "protobuf-v2-${version}";
@@ -8,9 +8,7 @@ buildGoModule rec {
   vendorSha256 = "0fcp09zyaxlzd7i6wj4z3pdiiydbiz0lma0vzdaw1f84br6sp4ms"; #lib.fakeSha256;
 
   doCheck = false;
-
-  GO111MODULE="on";
-
+  
   subPackages = [ "cmd/protoc-gen-go" ];
 
   src = fetchgit {
