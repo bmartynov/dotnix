@@ -1,6 +1,10 @@
 ---
 name: Build system
 
+on:
+  push:
+  pull_request:
+
 jobs:
   build_nixos_configurations:
     name: Build NixOS configuration for ${{ matrix.host }}
