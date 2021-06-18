@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, ... }:
 
 let userChrome = ''
   /* Hide main tabs toolbar */

@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 let extensions = pkgs.vscode-utils.extensionsFromVscodeMarketplace [
   {
