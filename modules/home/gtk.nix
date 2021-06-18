@@ -1,9 +1,4 @@
-{ pkgs, config, lib, inputs, ... }:
 {
-  # TODO: move
-  # programs.dconf.enable = true;
-  # services.dbus.packages = with pkgs; [ gnome3.dconf ];
-
   gtk = {
     enable = true;
     theme = {

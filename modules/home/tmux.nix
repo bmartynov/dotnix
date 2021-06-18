@@ -1,5 +1,3 @@
-{ pkgs, ... }:
-
 let extraConfig = ''
   ## renumber windows, if closed
   set-option -g renumber-windows on

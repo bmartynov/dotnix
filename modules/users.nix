@@ -15,8 +15,7 @@ let extraGroups = [
   "wireshark"
   "lp"
   "scanner"
-];
-in
+]; in
 {
   boris = { pkgs, ... }: {
     users.users.boris = {
