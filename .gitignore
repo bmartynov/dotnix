@@ -1,0 +1,4 @@
+.vscode/
+tmp/
+tmp_home/
+*.qcow2
