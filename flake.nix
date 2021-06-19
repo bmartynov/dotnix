@@ -21,8 +21,6 @@
     };
   };
 
-  inputs.nix.inputs.nixpkgs.follows = "nixpkgs";
-
   outputs = { self, nix, nur, ... }@inputs: {
     users = import ./modules/users.nix;
     system = import ./modules/system.nix;
