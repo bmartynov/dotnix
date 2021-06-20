@@ -9,7 +9,7 @@
     home-manager = {
       inputs.nixpkgs.follows = "nixpkgs";
 
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/master";
     };
     rust-overlay = {
       inputs.nixpkgs.follows = "nixpkgs";
