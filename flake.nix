@@ -32,6 +32,10 @@
         path = ./templates/golang;
         description = "Golang flake";
       };
+      rust = {
+        path = ./templates/rust;
+        description = "Rust flake";
+      };
     };
 
     nixosConfigurations = with inputs.nixpkgs.lib;

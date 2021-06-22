@@ -1,5 +1,5 @@
 {
-  description = "Basic python flake";
+  description = "Basic golang flake";
 
   inputs = {
     nixpkgs = {
