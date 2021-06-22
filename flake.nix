@@ -28,9 +28,9 @@
 
 
     templates = {
-      trivial = {
-        path = ./templates/trivial.nix;
-        description = "A very basic flake";
+      golang = {
+        path = ./templates/golang;
+        description = "Golang flake";
       };
     };
 
