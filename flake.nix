@@ -11,11 +11,6 @@
 
       url = "github:nix-community/home-manager/master";
     };
-    rust-overlay = {
-      inputs.nixpkgs.follows = "nixpkgs";
-
-      url = "github:oxalica/rust-overlay";
-    };
     nixos-hardware = {
       url = github:NixOS/nixos-hardware/master;
     };
@@ -26,16 +21,10 @@
     system = import ./modules/system.nix;
     profiles = import ./modules/profiles.nix;
 
-
     templates = {
-      golang = {
-        path = ./templates/golang;
-        description = "Golang flake";
-      };
-      rust = {
-        path = ./templates/rust;
-        description = "Rust flake";
-      };
+      js = { path = ./templates/node; description = "JS"; };
+      go = { path = ./templates/golang; description = "Golang"; };
+      rust = { path = ./templates/rust; description = "Rust"; };
     };
 
     nixosConfigurations = with inputs.nixpkgs.lib;

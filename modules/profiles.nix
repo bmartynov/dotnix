@@ -51,20 +51,6 @@ rec {
     ];
   };
 
-  golang = { pkgs, ... }: rec {
-    home.packages = with pkgs; [
-      go
-      golangci-lint
-    ];
-  };
-
-  rust = { pkgs, ... }: rec {
-    home.packages = with pkgs; [
-      rust-bin.nightly.latest.rust
-      rust-bin.nightly.latest.rust-src
-    ];
-  };
-
   virtualisation = {
     libvirtd = { pkgs, ... }: {
       home.packages = with pkgs; [
@@ -78,8 +64,6 @@ rec {
     require = [
       terminal
       development
-      rust
-      golang
       workspace
 
       virtualisation.libvirtd
