@@ -22,7 +22,7 @@
     profiles = import ./modules/profiles.nix;
 
     templates = {
-      js = { path = ./templates/node; description = "JS"; };
+      js = { path = ./templates/js; description = "JS"; };
       go = { path = ./templates/golang; description = "Golang"; };
       rust = { path = ./templates/rust; description = "Rust"; };
     };
