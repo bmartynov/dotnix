@@ -20,6 +20,9 @@
     users = import ./modules/users.nix;
     system = import ./modules/system.nix;
     profiles = import ./modules/profiles.nix;
+    container = {
+      work = import ./modules/container/work.nix;
+    };
 
     templates = {
       js = { path = ./templates/js; description = "JS"; };

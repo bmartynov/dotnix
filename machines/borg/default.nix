@@ -18,6 +18,8 @@
       inputs.self.system.gnome
 
       inputs.self.users.boris
+
+      inputs.self.container.work
     ];
 
   home-manager.useGlobalPkgs = true;
