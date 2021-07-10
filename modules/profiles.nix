@@ -41,6 +41,8 @@ rec {
     home.packages = with pkgs; [
       tdesktop
       keepassxc
+
+      transmission-gtk
     ];
   };
 
