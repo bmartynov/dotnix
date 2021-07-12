@@ -18,6 +18,13 @@
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
     ];
 
+    # garbage collection
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 7d";
+    };
+
     package = inputs.nix.packages.x86_64-linux.nix;
 
     extraOptions = ''
