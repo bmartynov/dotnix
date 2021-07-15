@@ -8,5 +8,9 @@
     nerdfonts
     material-icons
     material-design-icons
+
+    ubuntu_font_family
+    noto-fonts
+    noto-fonts-emoji
   ];
 }
