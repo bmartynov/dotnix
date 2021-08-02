@@ -1,12 +1,12 @@
 { pkgs, ... }:
 
 let extensions = pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-  {
-    name = "Go";
-    publisher = "golang";
-    version = "0.22.1";
-    sha256 = "sha256-VKwKS091nEP0f6i/Mx5/1Kw45mejhERU/F+4WN8Ia70=";
-  }
+  # {
+  #   name = "Go";
+  #   publisher = "golang";
+  #   version = "0.26.1";
+  #   sha256 = "sha256-VKwKS091nEP0f6i/Mx5/1Kw45mejhERU/F+4WN8Ia70=";
+  # }
   {
     name = "vscode-direnv";
     publisher = "Rubymaniac";
@@ -16,14 +16,14 @@ let extensions = pkgs.vscode-utils.extensionsFromVscodeMarketplace [
   {
     name = "intellij-idea-keybindings";
     publisher = "k--kato";
-    version = "1.3.0";
-    sha256 = "sha256-/IbcMBDflO+5+m9LzJCwI0NOmkbockgXzdjp/43Emis=";
+    version = "1.4.5";
+    sha256 = "sha256-3QTl/OUPlLj9U4clOAIEMlS9xdSIwZogf+ViYv3dfHE=";
   }
   {
     name = "vscode-typescript-next";
     publisher = "ms-vscode";
-    version = "4.3.20210223";
-    sha256 = "sha256-UeQKPPygNN7+cTLflW+ho9WfjUUa08vp4DN9NR3FGMc=";
+    version = "4.4.20210715";
+    sha256 = "sha256-fs3PErx2LV0PyaVInbZUzp5lsG2Q87te/Qc0JSb6+b0=";
   }
 ];
 in
