@@ -32,7 +32,7 @@ in
     enable = true;
     package = pkgs.vscode;
     extensions = [
-      pkgs.vscode-extensions.bbenoist.Nix
+      # pkgs.vscode-extensions.bbenoist.Nix
       pkgs.vscode-extensions.matklad.rust-analyzer
     ] ++ extensions;
   };
