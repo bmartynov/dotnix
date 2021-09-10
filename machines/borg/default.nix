@@ -11,11 +11,12 @@
       inputs.self.system.nixpkgs
       inputs.self.system.hardware.intel
       inputs.self.system.hardware.tlp
+      inputs.self.system.hardware.audio
 
       inputs.self.system.virtualisation.docker
       inputs.self.system.virtualisation.libvirtd
 
-      inputs.self.system.gnome
+      # inputs.self.system.gnome
 
       inputs.self.users.boris
     ];
@@ -26,7 +27,13 @@
 
   networking = {
     hostName = "borg";
-    networkmanager.enable = true;
+    wireless.iwd.enable = true;
+    networkmanager = {
+      enable = true;
+      wifi = {
+        backend = "iwd";
+      };
+    };
   };
 
   i18n.defaultLocale = "en_US.UTF-8";

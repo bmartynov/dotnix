@@ -10,6 +10,9 @@ with builtins;
     config = rec {
       modifier = "Mod4";
       bindkeysToCode = true;
+
+      bars = [];
+
       input = {
         "*" = {
           "xkb_layout" = "us,ru";

@@ -36,11 +36,13 @@ rec {
       ./home/gtk.nix
       ./home/fonts.nix
       ./home/firefox.nix
-      ./home/gnome.nix
+      ./home/sway.nix
     ];
     home.packages = with pkgs; [
       tdesktop
       keepassxc
+
+      dconf
 
       transmission-gtk
     ];
