@@ -33,7 +33,7 @@ in
     package = pkgs.vscode;
     extensions = with pkgs.vscode-extensions; [
       # pkgs.vscode-extensions.bbenoist.Nix
-      ms-python.python
+      # ms-python.python
       pkgs.vscode-extensions.matklad.rust-analyzer
     ] ++ extensions;
   };
