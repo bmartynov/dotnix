@@ -54,6 +54,7 @@ with builtins;
       # lock screen on lid open
       bindswitch lid:on exec "${pkgs.swaylock}/bin/swaylock --color 000000"
 
+      exec ${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1
     '';
 
     extraSessionCommands = ''
