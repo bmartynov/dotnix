@@ -11,7 +11,15 @@ with builtins;
       modifier = "Mod4";
       bindkeysToCode = true;
 
-      bars = [];
+      bars = [
+        {
+          statusCommand = "/home/boris/projects/rust/i3status-tokio/target/release/i3status-tokio";
+          fonts = {
+            names = [ "Awesome" ];
+            size = 14.0;
+          };
+        }
+      ];
 
       input = {
         "*" = {
