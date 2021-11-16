@@ -7,9 +7,7 @@
       url = "github:nixos/nixpkgs/nixos-unstable";
     };
     home-manager = {
-      inputs.nixpkgs.follows = "nixpkgs";
-
-      url = "github:nix-community/home-manager/master";
+      url = "github:nix-community/home-manager";
     };
     nixos-hardware = {
       url = github:NixOS/nixos-hardware/master;
