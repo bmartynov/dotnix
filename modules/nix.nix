@@ -30,7 +30,9 @@
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
+
     requireSignedBinaryCaches = true;
   };
   environment.etc.nixpkgs.source = inputs.nixpkgs;
+  environment.etc.self.source = inputs.self;
 }
