@@ -2,6 +2,7 @@ rec {
   terminal = { pkgs, ... }: rec {
     require = [
       ./home/zsh.nix
+      ./home/ssh.nix
       ./home/lf.nix
       ./home/htop.nix
       ./home/tmux.nix
@@ -10,6 +11,9 @@ rec {
       ./home/alacritty.nix
       ./home/session_variables.nix
     ];
+
+    services.kdeconnect.enable = true;
+    services.kdeconnect.indicator = true;
 
     home.packages = with pkgs; [
       bat

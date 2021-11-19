@@ -4,12 +4,28 @@ with lib;
 with builtins;
 
 {
+  programs.mako = {
+    enable = true;
+    font = "Ubuntu Mono 12";
+    borderColor = "#dddddd";
+    backgroundColor = "#000000";
+    progressColor = "#444444";
+    width = 400;
+    padding = "20";
+    borderSize = 3;
+    defaultTimeout = 3000; # ms
+  };
+
   wayland.windowManager.sway = {
     enable = true;
     wrapperFeatures.gtk = true;
     config = rec {
       modifier = "Mod4";
       bindkeysToCode = true;
+
+      startup = [
+        { command = "${pkgs.mako}/bin/mako"; }
+      ];
 
       bars = [
         {
@@ -63,6 +79,8 @@ with builtins;
       bindswitch lid:on exec "${pkgs.swaylock}/bin/swaylock --color 000000"
 
       exec ${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1
+
+      exec ${pkgs.dunst}/bin/dunst
     '';
 
     extraSessionCommands = ''

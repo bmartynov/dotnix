@@ -1,5 +1,11 @@
 { inputs, pkgs, ... }:
-{
+let
+  # KDE connect
+  localRanges = [{
+    from = 1714;
+    to = 1764;
+  }];
+in {
   imports =
     [
       # Include the results of the hardware scan.
@@ -33,6 +39,11 @@
       wifi = {
         backend = "iwd";
       };
+    };
+    firewall = {
+      enable = true;
+      interfaces.wlan0.allowedTCPPortRanges = localRanges;
+      interfaces.wlan0.allowedUDPPortRanges = localRanges;
     };
   };
 
