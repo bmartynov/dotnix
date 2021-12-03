@@ -2,18 +2,21 @@
   "nodes": {
     "home-manager": {
       "inputs": {
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": [
+          "nixpkgs"
+        ]
       },
       "locked": {
-        "lastModified": 1637825539,
-        "narHash": "sha256-TmSZRsBA59HHv6Dym3ZGm2eZDa2z5EmfyAA5F5tW03Q=",
+        "lastModified": 1638554279,
+        "narHash": "sha256-o5m0JqGolzn73IKhn6MLp/y5EJG4L391eGobzgOZoJY=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "c27c8f49c0bccaff91f5f637ad727d440b769997",
+        "rev": "1aaa1a033bae6c53773ad4374756ac72ba25b729",
         "type": "github"
       },
       "original": {
         "owner": "nix-community",
+        "ref": "master",
         "repo": "home-manager",
         "type": "github"
       }
@@ -37,7 +40,7 @@
     "nix": {
       "inputs": {
         "lowdown-src": "lowdown-src",
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs"
       },
       "locked": {
         "lastModified": 1637858273,
@@ -70,20 +73,6 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1637875216,
-        "narHash": "sha256-QWhCTTJIBi1z0NgU/gH/Q9BrhQTRJU0JmKRipXxM1kk=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "7d5905395da0dba83349dae80225b30c83b1aee1",
-        "type": "github"
-      },
-      "original": {
-        "id": "nixpkgs",
-        "type": "indirect"
-      }
-    },
-    "nixpkgs_2": {
-      "locked": {
         "lastModified": 1632864508,
         "narHash": "sha256-d127FIvGR41XbVRDPVvozUPQ/uRHbHwvfyKHwEt5xFM=",
         "owner": "NixOS",
@@ -97,7 +86,7 @@
         "type": "indirect"
       }
     },
-    "nixpkgs_3": {
+    "nixpkgs_2": {
       "locked": {
         "lastModified": 1637841632,
         "narHash": "sha256-QYqiKHdda0EOnLGQCHE+GluD/Lq2EJj4hVTooPM55Ic=",
@@ -133,7 +122,7 @@
         "home-manager": "home-manager",
         "nix": "nix",
         "nixos-hardware": "nixos-hardware",
-        "nixpkgs": "nixpkgs_3",
+        "nixpkgs": "nixpkgs_2",
         "nur": "nur"
       }
     }

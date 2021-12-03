@@ -27,9 +27,9 @@ in {
       inputs.self.users.boris
     ];
 
-  home-manager.useGlobalPkgs = true;
-  home-manager.useUserPackages = true;
-  home-manager.users.boris = inputs.self.profiles.boris;
+  # home-manager.useGlobalPkgs = true;
+  # home-manager.useUserPackages = true;
+  # home-manager.users.boris = inputs.self.profiles.boris;
 
   networking = {
     hostName = "borg";

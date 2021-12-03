@@ -6,7 +6,7 @@
     enableAutosuggestions = true;
 
     history = {
-      path = "${config.xdg.dataHome}/zsh/zsh_history";
+      path = "~/.local/share/zsh/zsh_history";
     };
 
     oh-my-zsh = {

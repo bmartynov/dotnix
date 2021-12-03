@@ -7,8 +7,11 @@
       url = "github:nixos/nixpkgs/nixos-unstable";
     };
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/master";
     };
+    
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    
     nixos-hardware = {
       url = github:NixOS/nixos-hardware/master;
     };
@@ -40,5 +43,29 @@
         borg = mkSystem "borg" "x86_64-linux";
         vulcan = mkSystem "vulcan" "x86_64-linux";
       };
+
+    homeConfigurations = {
+      boris = inputs.home-manager.lib.homeManagerConfiguration {
+        system = "x86_64-linux";
+        username = "boris";
+        homeDirectory = "/home/boris";
+        
+        configuration = { config, pkgs, ... }: {
+          require = [
+            self.profiles.boris
+          ];
+
+          nixpkgs.config = {
+            allowUnfree = true;
+          };
+
+          nixpkgs.overlays = [
+            inputs.nur.overlay
+          ];
+
+          programs.home-manager.enable = true;
+        };
+      };
+    };
   };
 }
