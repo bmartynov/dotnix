@@ -11,8 +11,6 @@ in {
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
 
-      inputs.home-manager.nixosModules.home-manager
-
       inputs.self.system.nix
       inputs.self.system.nixpkgs
       inputs.self.system.hardware.intel
@@ -26,10 +24,6 @@ in {
 
       inputs.self.users.boris
     ];
-
-  # home-manager.useGlobalPkgs = true;
-  # home-manager.useUserPackages = true;
-  # home-manager.users.boris = inputs.self.profiles.boris;
 
   networking = {
     hostName = "borg";
@@ -90,6 +84,10 @@ in {
       auth include login
     '';
   };
+
+  environment.systemPackages = with pkgs; [
+    acpi
+  ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
