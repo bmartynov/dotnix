@@ -1,5 +1,4 @@
-{ config, ... }:
-{
+{ config, ... }: {
   services.power-profiles-daemon.enable = false;
 
   services.tlp = {
@@ -16,7 +15,6 @@
 
       MAX_LOST_WORK_SECS_ON_AC = 15;
       MAX_LOST_WORK_SECS_ON_BAT = 60;
-
 
       # cpu specific 
       CPU_SCALING_GOVERNOR_ON_AC = "ondemand";
@@ -42,7 +40,6 @@
 
       NMI_WATCHDOG = 0;
 
-
       ENERGY_PERF_POLICY_ON_AC = "performance";
       ENERGY_PERF_POLICY_ON_BAT = "power";
 
@@ -51,10 +48,8 @@
       DISK_APM_LEVEL_ON_AC = "254 254";
       DISK_APM_LEVEL_ON_BAT = "128 128";
 
-
       SATA_LINKPWR_ON_AC = "med_power_with_dipm max_performance";
       SATA_LINKPWR_ON_BAT = "med_power_with_dipm min_power";
-
 
       AHCI_RUNTIME_PM_TIMEOUT = 15;
 
@@ -62,7 +57,6 @@
       PCIE_ASPM_ON_BAT = "default";
 
       INTEL_GPU_MAX_FREQ_ON_BAT = 450;
-
 
       WIFI_PWR_ON_AC = "off";
       WIFI_PWR_ON_BAT = "on";
@@ -81,20 +75,16 @@
       RUNTIME_PM_ON_AC = "on";
       RUNTIME_PM_ON_BAT = "auto";
 
-
       USB_AUTOSUSPEND = 0;
       USB_BLACKLIST_BTUSB = 0;
       USB_BLACKLIST_PHONE = 0;
       USB_BLACKLIST_PRINTER = 1;
       USB_BLACKLIST_WWAN = 0;
 
-
       RESTORE_DEVICE_STATE_ON_STARTUP = 0;
-
 
       START_CHARGE_THRESH_BAT0 = 40;
       STOP_CHARGE_THRESH_BAT0 = 80;
-
 
       NATACPI_ENABLE = 1;
       TPACPI_ENABLE = 1;
@@ -102,7 +92,5 @@
     };
   };
 
-  boot.extraModulePackages = with config.boot.kernelPackages; [
-    acpi_call
-  ];
+  boot.extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
 }

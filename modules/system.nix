@@ -1,21 +1,9 @@
 {
-  nix = {
-    require = [ ./nix.nix ];
-  };
-  nixpkgs = {
-    require = [ ./nixpkgs.nix ];
-  };
+  nix = { require = [ ./nix.nix ]; };
+  nixpkgs = { require = [ ./nixpkgs.nix ]; };
   hardware = {
-    intel = { pkgs, ... }: {
-      require = [
-        ./hardware/opengl_intel.nix
-      ];
-    };
-    tlp = {
-      require = [
-        ./hardware/thinkpad/tlp.nix
-      ];
-    };
+    intel = { pkgs, ... }: { require = [ ./hardware/opengl_intel.nix ]; };
+    tlp = { require = [ ./hardware/thinkpad/tlp.nix ]; };
     audio = {
       hardware.pulseaudio.enable = false;
       hardware.bluetooth.enable = true;

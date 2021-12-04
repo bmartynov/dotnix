@@ -1,38 +1,38 @@
 { pkgs, ... }:
 
-let userChrome = ''
-  /* Hide main tabs toolbar */
-  #TabsToolbar {
-      visibility: collapse;
-  }
+let
+  userChrome = ''
+    /* Hide main tabs toolbar */
+    #TabsToolbar {
+        visibility: collapse;
+    }
 
-  #main-window[tabsintitlebar="true"]:not([extradragspace="true"]) #TabsToolbar > .toolbar-items {
-    opacity: 0;
-    pointer-events: none;
-  }
+    #main-window[tabsintitlebar="true"]:not([extradragspace="true"]) #TabsToolbar > .toolbar-items {
+      opacity: 0;
+      pointer-events: none;
+    }
 
-  #main-window:not([tabsintitlebar="true"]) #TabsToolbar {
-      visibility: collapse !important;
-  }
+    #main-window:not([tabsintitlebar="true"]) #TabsToolbar {
+        visibility: collapse !important;
+    }
 
-  /* Hide sidebar header, when using Tree Style Tab. */
-  #sidebar-header {
-      visibility: collapse;
-  }
+    /* Hide sidebar header, when using Tree Style Tab. */
+    #sidebar-header {
+        visibility: collapse;
+    }
 
-  #forward-button {
-    display: none !important;
-  }
+    #forward-button {
+      display: none !important;
+    }
 
-  #home-button {
-    display: none !important;
-  }
+    #home-button {
+      display: none !important;
+    }
 
-  #reload-button {
-    display: none;
-  }'';
-in
-{
+    #reload-button {
+      display: none;
+    }'';
+in {
   programs.firefox = {
     enable = true;
     profiles.default = {

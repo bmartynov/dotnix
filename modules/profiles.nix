@@ -52,19 +52,11 @@ rec {
     ];
   };
 
-  development = rec {
-    require = [
-      ./home/git.nix
-      ./home/vscode.nix
-    ];
-  };
+  development = rec { require = [ ./home/git.nix ./home/vscode.nix ]; };
 
   virtualisation = {
     libvirtd = { pkgs, ... }: {
-      home.packages = with pkgs; [
-        virt-manager
-        virt-viewer
-      ];
+      home.packages = with pkgs; [ virt-manager virt-viewer ];
     };
   };
 

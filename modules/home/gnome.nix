@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   home.packages = with pkgs; [
     xorg.xprop
     gnome40Extensions."pixel-saver@deadalnix.me"

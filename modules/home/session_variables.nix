@@ -1,5 +1,4 @@
-{ config, ... }:
-{
+{ config, ... }: {
   home.sessionVariables = {
     # home cleanup
     ## ipython config dir

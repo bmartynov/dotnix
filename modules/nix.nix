@@ -5,18 +5,14 @@
 
     registry.self.flake = inputs.self;
 
-    trustedUsers = [
-      "root"
-      "@wheel"
-    ];
+    trustedUsers = [ "root" "@wheel" ];
 
     nrBuildUsers = 16;
 
     optimise.automatic = true;
 
-    binaryCachePublicKeys = [
-      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-    ];
+    binaryCachePublicKeys =
+      [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
 
     # garbage collection
     gc = {

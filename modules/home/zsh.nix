@@ -1,13 +1,10 @@
-{ config, ... }:
-{
+{ config, ... }: {
   programs.zsh = {
     enable = true;
     dotDir = ".config/zsh";
     enableAutosuggestions = true;
 
-    history = {
-      path = "${config.xdg.dataHome}/zsh/zsh_history";
-    };
+    history = { path = "${config.xdg.dataHome}/zsh/zsh_history"; };
 
     oh-my-zsh = {
       enable = true;
@@ -19,7 +16,7 @@
       function nix_run() { 
           nix run nixpkgs#$1 
       }
-      
+
       function nix_shell() { 
           nix shell nixpkgs#$1 
       }

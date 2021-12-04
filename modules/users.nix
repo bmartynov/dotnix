@@ -1,22 +1,23 @@
-let extraGroups = [
-  "sudo"
-  "wheel"
-  "networkmanager"
-  "disk"
-  "dbus"
-  "audio"
-  "docker"
-  "sound"
-  "pulse"
-  "adbusers"
-  "input"
-  "libvirtd"
-  "vboxusers"
-  "wireshark"
-  "lp"
-  "scanner"
-]; in
-{
+let
+  extraGroups = [
+    "sudo"
+    "wheel"
+    "networkmanager"
+    "disk"
+    "dbus"
+    "audio"
+    "docker"
+    "sound"
+    "pulse"
+    "adbusers"
+    "input"
+    "libvirtd"
+    "vboxusers"
+    "wireshark"
+    "lp"
+    "scanner"
+  ];
+in {
   boris = { pkgs, ... }: {
     users.users.boris = {
       uid = 1000;

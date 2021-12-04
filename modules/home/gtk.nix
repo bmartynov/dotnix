@@ -1,12 +1,8 @@
 {
   gtk = {
     enable = true;
-    theme = {
-      name = "Adwaita";
-    };
-    iconTheme = {
-      name = "Obsidian-Gray";
-    };
+    theme = { name = "Adwaita"; };
+    iconTheme = { name = "Obsidian-Gray"; };
     gtk3 = {
       extraCss = ''
         window.ssd headerbar.titlebar {
