@@ -1,21 +1,19 @@
-{ inputs, pkgs, ... }:
-{
-  imports =
-    [
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+{ inputs, pkgs, ... }: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
 
-      inputs.home-manager.nixosModules.home-manager
+    inputs.home-manager.nixosModules.home-manager
 
-      inputs.self.system.nix
-      inputs.self.system.nixpkgs
-      inputs.self.system.hardware.intel
+    inputs.self.system.nix
+    inputs.self.system.nixpkgs
+    inputs.self.system.hardware.intel
 
-      inputs.self.system.gnome
+    inputs.self.system.gnome
 
-      inputs.self.users.boris
-      inputs.self.users.alexandra
-    ];
+    inputs.self.users.boris
+    inputs.self.users.alexandra
+  ];
 
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
@@ -30,7 +28,6 @@
   i18n.defaultLocale = "en_US.UTF-8";
 
   time.timeZone = "Europe/Moscow";
-
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;

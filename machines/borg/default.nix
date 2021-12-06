@@ -6,33 +6,30 @@ let
     to = 1764;
   }];
 in {
-  imports =
-    [
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
 
-      inputs.self.system.nix
-      inputs.self.system.nixpkgs
-      inputs.self.system.hardware.intel
-      inputs.self.system.hardware.tlp
-      inputs.self.system.hardware.audio
+    inputs.self.system.nix
+    inputs.self.system.nixpkgs
+    inputs.self.system.hardware.intel
+    inputs.self.system.hardware.tlp
+    inputs.self.system.hardware.audio
 
-      inputs.self.system.virtualisation.docker
-      inputs.self.system.virtualisation.libvirtd
+    inputs.self.system.virtualisation.docker
+    inputs.self.system.virtualisation.libvirtd
 
-      # inputs.self.system.gnome
+    # inputs.self.system.gnome
 
-      inputs.self.users.boris
-    ];
+    inputs.self.users.boris
+  ];
 
   networking = {
     hostName = "borg";
     wireless.iwd.enable = true;
     networkmanager = {
       enable = true;
-      wifi = {
-        backend = "iwd";
-      };
+      wifi = { backend = "iwd"; };
     };
     firewall = {
       enable = true;
@@ -44,7 +41,6 @@ in {
   i18n.defaultLocale = "en_US.UTF-8";
 
   time.timeZone = "Europe/Moscow";
-
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
@@ -85,9 +81,7 @@ in {
     '';
   };
 
-  environment.systemPackages = with pkgs; [
-    acpi
-  ];
+  environment.systemPackages = with pkgs; [ acpi ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
