@@ -12,9 +12,6 @@ rec {
       ./home/session_variables.nix
     ];
 
-    services.kdeconnect.enable = true;
-    services.kdeconnect.indicator = true;
-
     home.packages = with pkgs; [
       bat
       exa

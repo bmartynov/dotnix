@@ -1,11 +1,4 @@
-{ inputs, pkgs, ... }:
-let
-  # KDE connect
-  localRanges = [{
-    from = 1714;
-    to = 1764;
-  }];
-in {
+{ inputs, pkgs, ... }: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -31,11 +24,7 @@ in {
       enable = true;
       wifi = { backend = "iwd"; };
     };
-    firewall = {
-      enable = true;
-      interfaces.wlan0.allowedTCPPortRanges = localRanges;
-      interfaces.wlan0.allowedUDPPortRanges = localRanges;
-    };
+    firewall = { enable = true; };
   };
 
   i18n.defaultLocale = "en_US.UTF-8";
