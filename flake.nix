@@ -57,6 +57,8 @@
 
           programs.home-manager.enable = true;
         };
+
+        extraSpecialArgs = { inherit inputs; };
       };
     };
 
