@@ -64,9 +64,7 @@
   services.thermald.enable = true;
   services.upower.enable = true;
   services.gvfs.enable = true;
-  services.udev.packages = [ 
-    pkgs.android-udev-rules 
-  ];
+  services.udev.packages = [ pkgs.android-udev-rules ];
 
   security.pam.services.swaylock = {
     text = ''

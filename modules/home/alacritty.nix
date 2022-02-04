@@ -17,10 +17,10 @@ in {
       shell = { program = "tmux"; };
       font = { size = 14; };
       window = {
+        opacity = 1;
         decorations = "none";
         gtk_theme_variant = "dark";
       };
-      background_opacity = 1;
     };
   } (if isDarwin then darwinOverride else { });
 }
