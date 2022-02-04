@@ -21,8 +21,6 @@
       options = "--delete-older-than 7d";
     };
 
-    package = inputs.nix.packages.x86_64-linux.nix;
-
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
