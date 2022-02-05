@@ -59,6 +59,8 @@
   boot.kernelParams = [ "psmouse.elan_smbus=0" ];
   boot.blacklistedKernelModules = [ "i2c_i801" ];
 
+  programs.ssh.startAgent = true;
+
   services.fwupd.enable = true;
   services.gnome.gnome-keyring.enable = true;
   services.thermald.enable = true;
