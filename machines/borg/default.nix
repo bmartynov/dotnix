@@ -63,7 +63,9 @@
 
   services.fwupd.enable = true;
   services.gnome.gnome-keyring.enable = true;
-  services.thermald.enable = true;
+
+  # TODO: enable later
+  services.thermald.enable = false;
   services.upower.enable = true;
   services.gvfs.enable = true;
   services.udev.packages = [ pkgs.android-udev-rules ];
