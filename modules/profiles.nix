@@ -49,12 +49,8 @@ rec {
     ];
   };
 
-  development = { pkgs, ... }: rec { 
-    require = [ 
-      ./home/git.nix 
-      ./home/vscode.nix 
-    ]; 
-    
+  development = { pkgs, ... }: rec {
+    require = [ ./home/git.nix ./home/vscode.nix ];
 
     home.packages = with pkgs; [ jetbrains.idea-community ];
   };

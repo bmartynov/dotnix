@@ -2,12 +2,12 @@
   nix = rec {
     settings = {
       trusted-users = [ "root" "@wheel" ];
-      
+
       require-sigs = true;
       substituters = [ "https://cache.nixos.org" ];
-      trusted-public-keys = [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
+      trusted-public-keys =
+        [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
     };
-
 
     nixPath = lib.mkForce [ "nixpkgs=/etc/nixpkgs" ];
 

@@ -25,14 +25,8 @@ with builtins;
 
       startup = [{ command = "${pkgs.mako}/bin/mako"; }];
 
-      bars = [{
-        statusCommand =
-          "/home/boris/projects/rust/i3status-tokio/target/release/i3status-tokio";
-        fonts = {
-          names = [ "Awesome" ];
-          size = 14.0;
-        };
-      }];
+
+      bars = [];
 
       input = {
         "*" = {

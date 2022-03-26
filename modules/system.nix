@@ -22,6 +22,17 @@
       desktopManager.gnome.enable = true;
     };
   };
+  tuigreet = { pkgs, ... }: {
+    services.greetd = {
+      enable = true;
+      settings = {
+        default_session = {
+          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd sway";
+          user = "greeter";
+        };
+      };
+    };
+  };
   virtualisation = {
     libvirtd = {
       virtualisation.libvirtd = {

@@ -12,7 +12,7 @@
     inputs.self.system.virtualisation.docker
     inputs.self.system.virtualisation.libvirtd
 
-    # inputs.self.system.gnome
+    inputs.self.system.tuigreet
 
     inputs.self.users.boris
   ];
