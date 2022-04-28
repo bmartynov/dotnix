@@ -1,6 +1,8 @@
-{ pkgs, lib, ... }:
+{ pkgs, config, lib, ... }:
 with lib;
 with pkgs.stdenv;
+with config.colorscheme.colors;
+
 let
   darwinOverride = {
     settings = {
@@ -21,6 +23,13 @@ in {
         decorations = "none";
         gtk_theme_variant = "dark";
       };
+
+      #      colors = {
+      #        primary = {
+      #          background = "#${base02}";
+      #          foreground = "#${base05}";
+      #        };
+      #      };
     };
   } (if isDarwin then darwinOverride else { });
 }

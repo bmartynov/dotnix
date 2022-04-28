@@ -1,19 +1,39 @@
-{ pkgs, lib, ... }:
+{ pkgs, config, lib, inputs, ... }:
 
 with lib;
 with builtins;
+with config.colorscheme.colors;
 
 {
+  home.packages = with pkgs; [
+    gtk-engine-murrine
+    gtk_engines
+    gsettings-desktop-schemas
+    lxappearance
+
+    slack
+
+    # screenshots
+    slurp
+    grim
+    wl-clipboard
+  ];
+
   programs.mako = {
     enable = true;
-    font = "Ubuntu Mono 12";
-    borderColor = "#dddddd";
-    backgroundColor = "#000000";
-    progressColor = "#444444";
+    # on top of fullscreen apps
+    layer = "overlay";
     width = 400;
     padding = "20";
     borderSize = 3;
     defaultTimeout = 3000; # ms
+
+    font = "Iosevka 14";
+    borderRadius = 5;
+    textColor = "#${base05}";
+    borderColor = "#${base01}";
+    progressColor = "#${base05}";
+    backgroundColor = "#${base02}";
   };
 
   wayland.windowManager.sway = {
@@ -23,10 +43,26 @@ with builtins;
       modifier = "Mod4";
       bindkeysToCode = true;
 
-      startup = [{ command = "${pkgs.mako}/bin/mako"; }];
+      startup = [
+        { command = "${pkgs.mako}/bin/mako"; }
+        {
+          command =
+            "dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY DBUS_SESSION_BUS_ADDRESS SWAYSOCK XDG_SESSION_TYPE XDG_SESSION_DESKTOP XDG_CURRENT_DESKTOP";
+        } # workaround
+      ];
 
+      gaps = { smartBorders = "on"; };
 
-      bars = [];
+      bars = [{
+        statusCommand =
+          "/home/boris/projects/rust/i3status-tokio/target/debug/i3status-tokio";
+        fonts = {
+          names = [ "Iosevka" ];
+          size = 14.0;
+        };
+      }];
+
+      window = { titlebar = false; };
 
       input = {
         "*" = {
@@ -39,9 +75,20 @@ with builtins;
           natural_scroll = "enabled";
         };
       };
+
+      output = {
+        "*" = {
+          bg = "${inputs.media}/wallpapers/nix-wallpaper-dracula.png fill";
+        };
+      };
+
       keybindings = mkOptionDefault {
         # terminal
         "${modifier}+Return" = "exec ${pkgs.alacritty}/bin/alacritty";
+
+        # terminal
+        "${modifier}+Control+L" =
+          "exec ${pkgs.swaylock}/bin/swaylock --color 000000";
 
         # multimedia keys
         "XF86AudioMute" =
@@ -61,6 +108,9 @@ with builtins;
 
         "XF86MonBrightnessUp" =
           "exec ${pkgs.brightnessctl}/bin/brightnessctl   set     +2%";
+
+        "--release Print" = ''
+          exec grim -g "$(slurp)" ~/pictures/scr_`date +%Y%m%d.%H.%M.%S`.png'';
       };
     };
 
@@ -70,7 +120,8 @@ with builtins;
 
       exec ${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1
 
-      exec ${pkgs.dunst}/bin/dunst
+      default_border pixel 1
+      hide_edge_borders --i3 smart
     '';
 
     extraSessionCommands = ''

@@ -1,8 +1,15 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
-    xorg.xprop
-    gnome40Extensions."pixel-saver@deadalnix.me"
-    gnome40Extensions."hidetopbar@mathieu.bidon.ca"
-    gnomeExtensions.vitals
+    nordic
+    arc-theme
+    gruvbox-dark-gtk
+    graphite-gtk-theme
+
+    gnome.gnome-themes-extra
+
+    gtk-engine-murrine
+
+    gnome40Extensions."unite@hardpixel.eu"
+    gnome40Extensions."Vitals@CoreCoding.com"
   ];
 }

@@ -1,5 +1,5 @@
 rec {
-  terminal = { pkgs, ... }: rec {
+  terminal = { pkgs, nix-colors, ... }: rec {
     require = [
       ./home/zsh.nix
       ./home/ssh.nix
@@ -11,6 +11,12 @@ rec {
       ./home/alacritty.nix
       ./home/session_variables.nix
     ];
+
+    imports = [
+      nix-colors.homeManagerModule
+    ];
+
+    colorscheme = nix-colors.colorSchemes.one-light;
 
     home.packages = with pkgs; [
       bat
@@ -35,11 +41,13 @@ rec {
     require = [
       ./home/xdg.nix
       ./home/gtk.nix
+      ./home/sway.nix
       ./home/fonts.nix
       ./home/firefox.nix
-      ./home/sway.nix
     ];
+
     home.packages = with pkgs; [
+      slack
       tdesktop
       keepassxc
 
@@ -52,7 +60,10 @@ rec {
   development = { pkgs, ... }: rec {
     require = [ ./home/git.nix ./home/vscode.nix ];
 
-    home.packages = with pkgs; [ jetbrains.idea-community ];
+    home.packages = with pkgs; [ 
+      jetbrains.goland
+      jetbrains.idea-community
+    ];
   };
 
   virtualisation = {

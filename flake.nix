@@ -7,9 +7,16 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     nixos-hardware = { url = "github:NixOS/nixos-hardware/master"; };
+
+    media = {
+      url = "github:bmartynov/dotnix/media";
+      flake = false;
+    };
+
+    nix-colors = { url = "github:misterio77/nix-colors"; };
   };
 
-  outputs = { self, nix, nur, ... }@inputs: {
+  outputs = { self, nix, nur, nix-colors, ... }@inputs: {
     users = import ./modules/users.nix;
     system = import ./modules/system.nix;
     profiles = import ./modules/profiles.nix;
@@ -58,7 +65,7 @@
           programs.home-manager.enable = true;
         };
 
-        extraSpecialArgs = { inherit inputs; };
+        extraSpecialArgs = { inherit inputs nix-colors; };
       };
     };
 

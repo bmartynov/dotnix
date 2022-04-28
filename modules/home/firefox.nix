@@ -53,6 +53,14 @@ in {
         "browser.search.openintab" = true;
         "xpinstall.signatures.required" = false;
         "extensions.update.enabled" = false;
+
+        "extensions.pocket.enabled" = false;
+        "gfx.webrender.all" = true;
+        "gfx.webrender.enabled" = true;
+        "layers.acceleration.force-enabled" = true;
+        "layers.force-active" = true;
+        "widget.wayland-dmabuf-vaapi.enabled" = true;
+        # "widget.content.allow-gtk-dark-theme" = false;
       };
     };
 

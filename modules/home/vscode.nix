@@ -2,12 +2,12 @@
 
 let
   extensions = pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-    # {
-    #   name = "Go";
-    #   publisher = "golang";
-    #   version = "0.26.1";
-    #   sha256 = "sha256-VKwKS091nEP0f6i/Mx5/1Kw45mejhERU/F+4WN8Ia70=";
-    # }
+    {
+      name = "Go";
+      publisher = "golang";
+      version = "0.32.0";
+      sha256 = "sha256-OsKeZrG157l1HUCDvymJ3ovLxlEEJf7RBe2hXOutdyg=";
+    }
     {
       name = "vscode-direnv";
       publisher = "Rubymaniac";

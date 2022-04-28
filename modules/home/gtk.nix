@@ -22,10 +22,7 @@
         "file:///home/boris/projects/ts"
         "file:///home/boris/projects/rust"
       ];
-      extraConfig = {
-        "gtk-cursor-theme-name" = "Breeze";
-        "gtk-application-prefer-dark-theme" = true;
-      };
+      extraConfig = { "gtk-cursor-theme-name" = "Breeze"; };
     };
   };
 }
