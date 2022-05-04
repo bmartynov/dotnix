@@ -38,10 +38,10 @@
 
   services.resolved = {
     enable = true;
-    dnssec = "true";
-    extraConfig = ''
-      DNSOverTLS=yes
-    '';
+#    dnssec = "true";
+#    extraConfig = ''
+#      DNSOverTLS=yes
+#    '';
   };
 
   i18n.defaultLocale = "en_US.UTF-8";
