@@ -19,12 +19,29 @@
 
   networking = {
     hostName = "borg";
-    wireless.iwd.enable = true;
     networkmanager = {
       enable = true;
       wifi = { backend = "iwd"; };
     };
-    firewall = { enable = true; };
+    firewall.enable = true;
+    wireless.iwd = {
+      enable = true;
+      settings = {
+        General = {
+          AddressRandomization="once";
+          AddressRandomizationRange="nic";
+          UseDefaultInterface=true;
+        };
+      };
+    };
+  };
+
+  services.resolved = {
+    enable = true;
+    dnssec = "true";
+    extraConfig = ''
+      DNSOverTLS=yes
+    '';
   };
 
   i18n.defaultLocale = "en_US.UTF-8";
