@@ -8,4 +8,11 @@
       (vaapiIntel.override { enableHybridCodec = true; })
     ];
   };
+
+  environment.systemPackages = with pkgs; [ 
+    glxinfo
+    libglvnd
+    mesa
+    libva-utils
+  ];
 }
