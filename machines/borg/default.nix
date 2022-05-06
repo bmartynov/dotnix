@@ -93,7 +93,10 @@
     '';
   };
 
-  environment.systemPackages = with pkgs; [ acpi ];
+  environment.systemPackages = with pkgs; [
+    acpi
+    qt5.qtwayland
+  ];
 
   xdg.portal = {
     enable = true;
