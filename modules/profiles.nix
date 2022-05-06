@@ -56,6 +56,8 @@ rec {
       transmission-gtk
 
       wireshark
+
+      libreoffice
     ];
   };
 
