@@ -54,6 +54,8 @@ rec {
       dconf
 
       transmission-gtk
+
+      wireshark
     ];
   };
 
