@@ -10,13 +10,15 @@ rec {
       ./home/starship.nix
       ./home/alacritty.nix
       ./home/session_variables.nix
+
+      ./mprofiles.nix
     ];
 
     imports = [
       nix-colors.homeManagerModule
     ];
 
-    colorscheme = nix-colors.colorSchemes.one-light;
+    colorscheme = nix-colors.colorSchemes.tokyo-city-light;
 
     home.packages = with pkgs; [
       bat
@@ -62,7 +64,10 @@ rec {
   };
 
   development = { pkgs, ... }: rec {
-    require = [ ./home/git.nix ./home/vscode.nix ];
+    require = [ 
+      ./home/git.nix 
+      ./home/vscode.nix 
+    ];
 
     home.packages = with pkgs; [ 
       jetbrains.goland

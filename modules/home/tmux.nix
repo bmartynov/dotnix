@@ -1,3 +1,7 @@
+{ config, ... }:
+
+with config.colorscheme.colors;
+
 let
   extraConfig = ''
     ## renumber windows, if closed
@@ -16,7 +20,7 @@ let
     set -g status-keys vi
 
     ## misc
-    bind-key r source-file ~/.tmux.conf \; display-message "config reloaded"
+    bind-key r source-file ~/.config/tmux/tmux.conf \; display-message "config reloaded"
     bind-key a send-keys `
     bind-key X kill-pane
     bind-key K confirm-before kill-window
@@ -36,19 +40,34 @@ let
     bind-key D swap-pane -D
 
     # decoration
-    set-option -g status-justify left
-    set-option -g status-left-length 16
-    set-option -g status-bg colour237
-    set-option -g status-interval 60
+    # default statusbar colors
+    set-option -g status-style "fg=#${base04},bg=#${base01}"
 
-    ## message text
-    set-option -g message-style bg=colour253,fg=colour232
+    # default window title colors
+    set-window-option -g window-status-style "fg=#${base04},bg=default"
 
-    ## non active pane
-    set-window-option -g window-status-current-format '#[fg=colour232]#[bg=colour253] #I #[bg=colour235]#[fg=colour253] #[bg=colour234]#W#[bg=colour235]#[fg=colour195]#F#[bg=colour236] '
+    # active window title colors
+    set-window-option -g window-status-current-style "fg=#${base0A},bg=default"
 
-    ## non active pane
-    set-window-option -g window-status-format '#[fg=colour253]#[bg=colour0] #I #[bg=colour239]#[fg=colour253] #[bg=colour240]#W#[bg=colour239]#[fg=colour195]#F#[bg=colour238] '
+    # pane border
+    set-option -g pane-border-style "fg=#${base01}"
+    set-option -g pane-active-border-style "fg=#${base02}"
+
+    # message text
+    set-option -g message-style "fg=#${base05},bg=#${base01}"
+
+    # pane number display
+    set-option -g display-panes-active-colour "#${base0B}"
+    set-option -g display-panes-colour "#${base0A}"
+
+    # clock
+    set-window-option -g clock-mode-colour "#${base0B}"
+
+    # copy mode highligh
+    set-window-option -g mode-style "fg=#${base04},bg=#${base02}"
+
+    # bell
+    set-window-option -g window-status-bell-style "fg=#${base01},bg=#${base08}"
   '';
 in {
   programs.tmux = {

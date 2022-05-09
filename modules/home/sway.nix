@@ -17,6 +17,7 @@ with config.colorscheme.colors;
     slurp
     grim
     wl-clipboard
+    xdg-utils
   ];
 
   programs.mako = {
@@ -25,15 +26,27 @@ with config.colorscheme.colors;
     layer = "overlay";
     width = 400;
     padding = "20";
-    borderSize = 3;
+    borderSize = 1;
     defaultTimeout = 3000; # ms
 
     font = "Iosevka 14";
     borderRadius = 5;
-    textColor = "#${base05}";
-    borderColor = "#${base01}";
-    progressColor = "#${base05}";
-    backgroundColor = "#${base02}";
+
+    extraConfig = ''
+      background-color=#${base00}
+      text-color=#${base05}
+      border-color=#${base0D}
+
+      [urgency=low]
+      background-color=#${base00}
+      text-color=#${base0A}
+      border-color=#${base0D}
+
+      [urgency=high]
+      background-color=#${base00}
+      text-color=#${base08}
+      border-color=#${base0D}
+    '';
   };
 
   wayland.windowManager.sway = {
@@ -58,9 +71,71 @@ with config.colorscheme.colors;
           "/home/boris/projects/rust/i3status-tokio/target/debug/i3status-tokio";
         fonts = {
           names = [ "Iosevka" ];
-          size = 14.0;
+          size = 12.0;
+        };
+
+        colors = {
+          background = base00;
+          separator = base01;
+          statusline = base04;
+          focusedWorkspace = {
+            border = base05;
+            background = base0D;
+            text = base00;
+          };
+          activeWorkspace = {
+            border = base05;
+            background = base03;
+            text = base00;
+          };
+          inactiveWorkspace = {
+            border = base03;
+            background = base01;
+            text = base05;
+          };
+          urgentWorkspace = {
+            border = base08;
+            background = base08;
+            text = base00;
+          };
+          bindingMode = {
+            border = base00;
+            background = base0A;
+            text = base00;
+          };
         };
       }];
+
+      colors = rec {
+        focused = {
+          border = base05;
+          background = base0D;
+          text = base00;
+          indicator = base0D;
+          childBorder = base0D;
+        };
+        focusedInactive = {
+          border = base01;
+          background = base01;
+          text = base05;
+          indicator = base03;
+          childBorder = base01;
+        };
+        unfocused = {
+          text = base01;
+          border = base00;
+          background = base05;
+          childBorder = base01;
+          indicator = base01;
+        };
+        urgent = {
+          text = base08;
+          border = base08;
+          background = base00;
+          childBorder = base08;
+          indicator = base08;
+        };
+      };
 
       window = { titlebar = false; };
 
@@ -69,7 +144,7 @@ with config.colorscheme.colors;
           "xkb_layout" = "us,ru";
           "xkb_options" = "grp:caps_toggle,grp_led:caps";
         };
-        "2:14:ETPS/2_Elantech_Touchpad" = {
+        "type:touchpad" = {
           tap = "enabled";
           dwt = "enabled";
           natural_scroll = "enabled";
@@ -109,7 +184,8 @@ with config.colorscheme.colors;
         "XF86MonBrightnessUp" =
           "exec ${pkgs.brightnessctl}/bin/brightnessctl   set     +2%";
 
-        "--release Print" = ''
+        "--release Print" = "exec slurp | grim -g - - | wl-copy";
+        "--release ${modifier}+Print" = ''
           exec grim -g "$(slurp)" ~/pictures/scr_`date +%Y%m%d.%H.%M.%S`.png'';
       };
     };
