@@ -4,14 +4,30 @@ with lib;
 with builtins;
 with config.colorscheme.colors;
 
-{
+let
+  cfg = config.wayland.windowManager.sway.config;
+
+  # dsl 
+  mod = k: cfg.modifier + "+${toString k}";
+  modShift = k: mod "Shift+${toString k}";
+  modControl = k: mod "Control+${toString k}";
+
+  exec = c: "exec ${c}";
+  move = c: "move ${c}";
+  layout = c: "layout ${c}";
+  focus = c: "focus ${c}";
+  floating = c: "floating ${c}";
+  workspace = n: "workspace ${toString n}";
+  move_container = w: "move container to workspace ${w}";
+
+  # apps
+  lock = "${pkgs.swaylock}/bin/swaylock --color 000000";
+
+in {
   home.packages = with pkgs; [
     gtk-engine-murrine
     gtk_engines
     gsettings-desktop-schemas
-    lxappearance
-
-    slack
 
     # screenshots
     slurp
@@ -76,37 +92,39 @@ with config.colorscheme.colors;
 
         colors = {
           background = base00;
-          separator = base01;
+          separator = base03;
           statusline = base04;
+
           focusedWorkspace = {
-            border = base05;
-            background = base0D;
             text = base00;
+            border = base05;
+            background = base0C;
           };
           activeWorkspace = {
+            text = base00;
             border = base05;
             background = base03;
-            text = base00;
           };
           inactiveWorkspace = {
+            text = base05;
             border = base03;
             background = base01;
-            text = base05;
           };
           urgentWorkspace = {
+            text = base00;
             border = base08;
             background = base08;
-            text = base00;
           };
           bindingMode = {
+            text = base00;
             border = base00;
             background = base0A;
-            text = base00;
           };
         };
       }];
 
       colors = rec {
+        background = base07;
         focused = {
           border = base05;
           background = base0D;
@@ -135,6 +153,13 @@ with config.colorscheme.colors;
           childBorder = base08;
           indicator = base08;
         };
+        placeholder = {
+          text = base00;
+          border = base00;
+          background = base05;
+          childBorder = base00;
+          indicator = base00;
+        };
       };
 
       window = { titlebar = false; };
@@ -157,47 +182,51 @@ with config.colorscheme.colors;
         };
       };
 
-      keybindings = mkOptionDefault {
-        # terminal
-        "${modifier}+Return" = "exec ${pkgs.alacritty}/bin/alacritty";
+      keybindings = with cfg;
+        mkOptionDefault {
+          ${mod "d"} = "exec ${cfg.menu}";
 
-        # terminal
-        "${modifier}+Control+L" =
-          "exec ${pkgs.swaylock}/bin/swaylock --color 000000";
+          # terminal
+          ${mod "Return"} = "exec ${pkgs.alacritty}/bin/alacritty";
 
-        # multimedia keys
-        "XF86AudioMute" =
-          "exec ${pkgs.pulseaudioFull}/bin/pactl set-sink-mute     @DEFAULT_SINK@      toggle";
+          # terminal
+          ${modControl "L"} = "exec ${lock}";
 
-        "XF86AudioMicMute" =
-          "exec ${pkgs.pulseaudioFull}/bin/pactl set-source-mute   @DEFAULT_SOURCE@    toggle";
+          # multimedia keys
+          "XF86AudioMute" =
+            "exec ${pkgs.pulseaudioFull}/bin/pactl set-sink-mute     @DEFAULT_SINK@      toggle";
 
-        "XF86AudioRaiseVolume" =
-          "exec ${pkgs.pulseaudioFull}/bin/pactl set-sink-volume   @DEFAULT_SINK@      +5% ";
+          "XF86AudioMicMute" =
+            "exec ${pkgs.pulseaudioFull}/bin/pactl set-source-mute   @DEFAULT_SOURCE@    toggle";
 
-        "XF86AudioLowerVolume" =
-          "exec ${pkgs.pulseaudioFull}/bin/pactl set-sink-volume   @DEFAULT_SINK@      -5% ";
+          "XF86AudioRaiseVolume" =
+            "exec ${pkgs.pulseaudioFull}/bin/pactl set-sink-volume   @DEFAULT_SINK@      +5% ";
 
-        "XF86MonBrightnessDown" =
-          "exec ${pkgs.brightnessctl}/bin/brightnessctl   set     2%-";
+          "XF86AudioLowerVolume" =
+            "exec ${pkgs.pulseaudioFull}/bin/pactl set-sink-volume   @DEFAULT_SINK@      -5% ";
 
-        "XF86MonBrightnessUp" =
-          "exec ${pkgs.brightnessctl}/bin/brightnessctl   set     +2%";
+          "XF86MonBrightnessDown" =
+            "exec ${pkgs.brightnessctl}/bin/brightnessctl   set     2%-";
 
-        "--release Print" = "exec slurp | grim -g - - | wl-copy";
-        "--release ${modifier}+Print" = ''
-          exec grim -g "$(slurp)" ~/pictures/scr_`date +%Y%m%d.%H.%M.%S`.png'';
-      };
+          "XF86MonBrightnessUp" =
+            "exec ${pkgs.brightnessctl}/bin/brightnessctl   set     +2%";
+
+          "--release Print" = "exec slurp | grim -g - - | wl-copy";
+          "--release ${modifier}+Print" = ''
+            exec grim -g "$(slurp)" ~/pictures/scr_`date +%Y%m%d.%H.%M.%S`.png'';
+        };
     };
 
     extraConfig = ''
       # lock screen on lid open
-      bindswitch lid:on exec "${pkgs.swaylock}/bin/swaylock --color 000000"
+      bindswitch lid:on exec ${lock}
 
       exec ${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1
 
       default_border pixel 1
       hide_edge_borders --i3 smart
+
+      workspace_auto_back_and_forth yes
     '';
 
     extraSessionCommands = ''

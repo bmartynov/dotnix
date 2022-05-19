@@ -58,16 +58,18 @@
         configuration = { config, pkgs, lib, ... }: {
           require = [ self.profiles.boris ];
 
-          nixpkgs.config = { 
-            allowUnfree = true; 
+          nixpkgs.config = {
+            allowUnfree = true;
 
-            allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-              "slack"
-              "goland"
-              "vscode"
-              "corefonts"
-              "google-chrome"
-            ];
+            allowUnfreePredicate = pkg:
+              builtins.elem (lib.getName pkg) [
+                "slack"
+                "goland"
+                "vscode"
+                "anydesk"
+                "corefonts"
+                "google-chrome"
+              ];
           };
 
           nixpkgs.overlays = [ inputs.nur.overlay ];

@@ -14,11 +14,9 @@ rec {
       ./mprofiles.nix
     ];
 
-    imports = [
-      nix-colors.homeManagerModule
-    ];
+    imports = [ nix-colors.homeManagerModule ];
 
-    colorscheme = nix-colors.colorSchemes.tokyo-city-light;
+    colorscheme = nix-colors.colorSchemes.nord;
 
     home.packages = with pkgs; [
       bat
@@ -59,20 +57,16 @@ rec {
 
       wireshark
 
+      anydesk
+
       libreoffice
     ];
   };
 
   development = { pkgs, ... }: rec {
-    require = [ 
-      ./home/git.nix 
-      ./home/vscode.nix 
-    ];
+    require = [ ./home/git.nix ./home/vscode.nix ];
 
-    home.packages = with pkgs; [ 
-      jetbrains.goland
-      jetbrains.idea-community
-    ];
+    home.packages = with pkgs; [ jetbrains.goland jetbrains.idea-community ];
   };
 
   virtualisation = {

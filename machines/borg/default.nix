@@ -28,9 +28,9 @@
       enable = true;
       settings = {
         General = {
-          AddressRandomization="once";
-          AddressRandomizationRange="nic";
-          UseDefaultInterface=true;
+          AddressRandomization = "once";
+          AddressRandomizationRange = "nic";
+          UseDefaultInterface = true;
         };
       };
     };
@@ -38,10 +38,10 @@
 
   services.resolved = {
     enable = true;
-#    dnssec = "true";
-#    extraConfig = ''
-#      DNSOverTLS=yes
-#    '';
+    #    dnssec = "true";
+    #    extraConfig = ''
+    #      DNSOverTLS=yes
+    #    '';
   };
 
   i18n.defaultLocale = "en_US.UTF-8";
@@ -93,18 +93,12 @@
     '';
   };
 
-  environment.systemPackages = with pkgs; [
-    acpi
-    qt5.qtwayland
-  ];
+  environment.systemPackages = with pkgs; [ acpi qt5.qtwayland ];
 
   xdg.portal = {
     enable = true;
     gtkUsePortal = true;
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-gtk
-      xdg-desktop-portal-wlr
-    ];
+    extraPortals = with pkgs; [ xdg-desktop-portal-gtk xdg-desktop-portal-wlr ];
   };
 
   programs.dconf.enable = true;
