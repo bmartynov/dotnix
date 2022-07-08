@@ -1,10 +1,13 @@
 {
   inputs = {
     nur = { url = "github:nix-community/NUR"; };
-    nixpkgs = { url = "github:nixos/nixpkgs/nixos-unstable"; };
-    home-manager = { url = "github:nix-community/home-manager/master"; };
 
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    nixpkgs = { url = "github:nixos/nixpkgs/nixos-unstable"; };
+
+    home-manager = {
+      url = "github:nix-community/home-manager/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     nixos-hardware = { url = "github:NixOS/nixos-hardware/master"; };
 
@@ -16,72 +19,62 @@
     nix-colors = { url = "github:misterio77/nix-colors"; };
   };
 
-  outputs = { self, nix, nur, nix-colors, ... }@inputs: {
-    users = import ./modules/users.nix;
-    system = import ./modules/system.nix;
-    profiles = import ./modules/profiles.nix;
-
-    templates = {
-      js = {
-        path = ./templates/js;
-        description = "JS";
-      };
-      go = {
-        path = ./templates/golang;
-        description = "Golang";
-      };
-      rust = {
-        path = ./templates/rust;
-        description = "Rust";
-      };
-    };
-
-    nixosConfigurations = with inputs.nixpkgs.lib;
-      let
-        mkSystem = name: system:
-          nixosSystem {
-            system = system;
-            modules = [ (import (./machines + "/${name}")) ];
-            specialArgs = { inherit inputs; };
-          };
-      in {
-        borg = mkSystem "borg" "x86_64-linux";
-        vulcan = mkSystem "vulcan" "x86_64-linux";
-      };
-
-    homeConfigurations = {
-      boris = inputs.home-manager.lib.homeManagerConfiguration {
-        system = "x86_64-linux";
-        username = "boris";
-        homeDirectory = "/home/boris";
-
-        configuration = { config, pkgs, lib, ... }: {
-          require = [ self.profiles.boris ];
-
-          nixpkgs.config = {
+  outputs = { self, nixpkgs, home-manager, nix-colors, ... }@inputs:
+    let
+      pkgsFor = system:
+        import inputs.nixpkgs {
+          overlays = [
+            inputs.nur.overlay
+          ];
+          localSystem = { inherit system; };
+          config = {
             allowUnfree = true;
-
-            allowUnfreePredicate = pkg:
-              builtins.elem (lib.getName pkg) [
-                "slack"
-                "goland"
-                "vscode"
-                "anydesk"
-                "corefonts"
-                "google-chrome"
-              ];
+            android_sdk.accept_license = true;
           };
-
-          nixpkgs.overlays = [ inputs.nur.overlay ];
-
-          programs.home-manager.enable = true;
         };
 
-        extraSpecialArgs = { inherit inputs nix-colors; };
+      mkSystem = system: name:
+        let pkgs = pkgsFor system;
+        in inputs.nixpkgs.lib.nixosSystem {
+          inherit system;
+          modules = [
+            (import (./machines + "/${name}") {
+              inputs = inputs;
+              lib = inputs.nixpkgs.lib;
+              device = name;
+              inherit pkgs;
+            })
+            { nixpkgs.pkgs = pkgs; }
+          ];
+          specialArgs = { inherit inputs; };
+        };
+
+      mkHome = system: username:
+        home-manager.lib.homeManagerConfiguration {
+          pkgs = pkgsFor system;
+          modules = [ 
+            ./profiles/${username}.nix
+          ];
+          extraSpecialArgs = { inherit inputs nix-colors; };
+        };
+    in {
+      profiles = import ./profiles;
+
+      # 
+      legacyPackages.x86_64-linux = pkgsFor "x86_64-linux";
+
+      # dev shell
+      devShell.x86_64-linux = with nixpkgs.legacyPackages.x86_64-linux;
+        mkShell { buildInputs = [ nixfmt ]; };
+
+      nixosConfigurations = { 
+        borg = mkSystem "x86_64-linux" "borg"; 
+        vulcan = mkSystem "x86_64-linux" "vulcan"; 
+      };
+
+      homeConfigurations = { 
+        boris = mkHome "x86_64-linux" "boris"; 
+        alexandra = mkHome "x86_64-linux" "alexandra"; 
       };
     };
-
-    devShell.x86_64-linux = with inputs.nixpkgs.legacyPackages.x86_64-linux;
-      mkShell { buildInputs = [ nixfmt ]; };
-  };
 }

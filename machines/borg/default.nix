@@ -1,91 +1,27 @@
-{ inputs, pkgs, ... }: {
+{ inputs, lib, pkgs, device, ... }: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
 
-    inputs.self.system.nix
-    inputs.self.system.nixpkgs
-    inputs.self.system.hardware.intel
-    inputs.self.system.hardware.tlp
-    inputs.self.system.hardware.audio
+    inputs.self.profiles.nix
+    inputs.self.profiles.boot
+    inputs.self.profiles.sound
+    inputs.self.profiles.docker
+    inputs.self.profiles.libvirtd
+    inputs.self.profiles.networking
 
-    inputs.self.system.virtualisation.docker
-    inputs.self.system.virtualisation.libvirtd
+    inputs.self.profiles.opengl
+    inputs.self.profiles.hardware.t480s.tlp
+    inputs.self.profiles.hardware.intel.gpu
 
-    inputs.self.system.tuigreet
-
-    inputs.self.users.boris
+    inputs.self.profiles.security.boris
   ];
 
-  networking = {
-    hostName = "borg";
-    networkmanager = {
-      enable = true;
-      wifi = { backend = "iwd"; };
-    };
-    firewall.enable = true;
-    wireless.iwd = {
-      enable = true;
-      settings = {
-        General = {
-          AddressRandomization = "once";
-          AddressRandomizationRange = "nic";
-          UseDefaultInterface = true;
-        };
-      };
-    };
-  };
-
-  services.resolved = {
-    enable = true;
-    #    dnssec = "true";
-    #    extraConfig = ''
-    #      DNSOverTLS=yes
-    #    '';
-  };
+  networking.hostName = "borg";
 
   i18n.defaultLocale = "en_US.UTF-8";
 
-  time.timeZone = "Europe/Moscow";
-
-  boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
-
-    initrd = {
-      luks.devices = {
-        root = {
-          device = "/dev/disk/by-uuid/0091dba4-522c-44db-a07a-43bff10d98dd";
-          preLVM = true;
-          allowDiscards = true;
-        };
-      };
-    };
-
-    loader = {
-      grub = {
-        enable = true;
-        version = 2;
-        device = "nodev";
-        efiSupport = true;
-      };
-      efi.canTouchEfiVariables = true;
-    };
-  };
-
-  # trackpoint issue: freeze
-  boot.kernelParams = [ "psmouse.elan_smbus=0" ];
-  boot.blacklistedKernelModules = [ "i2c_i801" ];
-
-  programs.ssh.startAgent = true;
-
-  services.fwupd.enable = true;
-  services.gnome.gnome-keyring.enable = true;
-
-  # TODO: enable later
-  services.thermald.enable = true;
-  services.upower.enable = true;
-  services.gvfs.enable = true;
-  services.udev.packages = [ pkgs.android-udev-rules ];
+  time.timeZone = "Asia/Dubai";
 
   security.pam.services.swaylock = {
     text = ''
@@ -93,7 +29,7 @@
     '';
   };
 
-  environment.systemPackages = with pkgs; [ acpi qt5.qtwayland ];
+  environment.systemPackages = with pkgs; [ acpi qt5.qtwayland gparted ];
 
   xdg.portal = {
     enable = true;
@@ -103,6 +39,20 @@
 
   programs.dconf.enable = true;
   services.dbus.packages = with pkgs; [ dconf ];
+  programs.ssh.startAgent = true;
+
+  services.fwupd.enable = true;
+  services.gnome.gnome-keyring.enable = true;
+
+  services.thermald.enable = true;
+  services.upower.enable = true;
+  services.gvfs.enable = true;
+  services.udev.packages = [ pkgs.android-udev-rules ];
+
+  # thinkpad t480s trackpoint issue (freezing)
+  boot.kernelParams = [ "psmouse.elan_smbus=0" ];
+
+  boot.blacklistedKernelModules = [ "i2c_i801" ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

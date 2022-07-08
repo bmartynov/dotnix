@@ -45,7 +45,7 @@ in {
     borderSize = 1;
     defaultTimeout = 3000; # ms
 
-    font = "Iosevka 14";
+    # font = "Iosevka 14";
     borderRadius = 5;
 
     extraConfig = ''
@@ -86,7 +86,7 @@ in {
         statusCommand =
           "/home/boris/projects/rust/i3status-tokio/target/debug/i3status-tokio";
         fonts = {
-          names = [ "Iosevka" ];
+          # names = [ "Iosevka" ];
           size = 12.0;
         };
 
