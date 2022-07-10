@@ -51,6 +51,7 @@
     slack
     tdesktop
     keepassxc
+    skypeforlinux
 
     dconf
 
