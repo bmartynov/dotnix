@@ -1,7 +1,7 @@
 { pkgs, ... }: {
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
-    iosevka
+    # iosevka
     corefonts
     dejavu_fonts
     ubuntu_font_family

@@ -18,6 +18,16 @@
     fsType = "ext4";
   };
 
+  boot.initrd = {
+    luks.devices = {
+      root = {
+        device = "/dev/disk/by-uuid/0091dba4-522c-44db-a07a-43bff10d98dd";
+        preLVM = true;
+        allowDiscards = true;
+      };
+    };
+  };
+
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/3D3D-DA19";
     fsType = "vfat";

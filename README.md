@@ -11,3 +11,4 @@ nixos-rebuild switch --flake .
 `
 nix build .#homeConfigurations.boris.activationPackage && ./result/activate
 `
+
