@@ -18,7 +18,6 @@
     ./home/firefox.nix
 
     # development
-    ./home/git.nix
     ./home/vscode.nix
 
     nix-colors.homeManagerModule
