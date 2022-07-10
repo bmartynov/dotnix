@@ -33,6 +33,7 @@
     bat
     exa
     fd
+    git
     hyperfine
     ripgrep
     tokei
