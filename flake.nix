@@ -23,9 +23,7 @@
     let
       pkgsFor = system:
         import inputs.nixpkgs {
-          overlays = [
-            inputs.nur.overlay
-          ];
+          overlays = [ inputs.nur.overlay ];
           localSystem = { inherit system; };
           config = {
             allowUnfree = true;
@@ -52,9 +50,7 @@
       mkHome = system: username:
         home-manager.lib.homeManagerConfiguration {
           pkgs = pkgsFor system;
-          modules = [ 
-            ./profiles/${username}.nix
-          ];
+          modules = [ ./profiles/${username}.nix ];
           extraSpecialArgs = { inherit inputs nix-colors; };
         };
     in {
@@ -67,14 +63,14 @@
       devShell.x86_64-linux = with nixpkgs.legacyPackages.x86_64-linux;
         mkShell { buildInputs = [ nixfmt ]; };
 
-      nixosConfigurations = { 
-        borg = mkSystem "x86_64-linux" "borg"; 
-        vulcan = mkSystem "x86_64-linux" "vulcan"; 
+      nixosConfigurations = {
+        borg = mkSystem "x86_64-linux" "borg";
+        vulcan = mkSystem "x86_64-linux" "vulcan";
       };
 
-      homeConfigurations = { 
-        boris = mkHome "x86_64-linux" "boris"; 
-        alexandra = mkHome "x86_64-linux" "alexandra"; 
+      homeConfigurations = {
+        boris = mkHome "x86_64-linux" "boris";
+        alexandra = mkHome "x86_64-linux" "alexandra";
       };
     };
 }

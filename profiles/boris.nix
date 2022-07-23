@@ -15,11 +15,11 @@
     ./home/xdg.nix
     ./home/gtk.nix
     ./home/sway.nix
+    ./home/gnome.nix
     ./home/fonts.nix
     ./home/firefox.nix
 
     # development
-    ./home/git.nix
     ./home/vscode.nix
 
     nix-colors.homeManagerModule
@@ -39,11 +39,11 @@
     ripgrep
     tokei
 
-    blueman
-
     easyeffects
 
     jq
+
+    git
 
     google-chrome
 
@@ -69,11 +69,16 @@
     pkgs.jetbrains.idea-community
   ];
 
-
   programs.zsh.shellAliases = {
     "cat" = "bat";
     "ls" = "exa";
   };
+
+  # bookmarks
+  gtk.gtk3.bookmarks = [
+    "file:///home/boris/work"
+    "file:///home/boris/projects"
+  ];
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

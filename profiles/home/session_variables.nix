@@ -18,5 +18,8 @@
 
     ## less history file 
     "LESSHISTFILE" = "-";
+
+    ## slack
+    "NIXOS_OZONE_WL" = "1";
   };
 }

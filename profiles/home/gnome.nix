@@ -9,6 +9,9 @@
 
     gtk-engine-murrine
 
+    nordzy-icon-theme
+    gnomeExtensions.gsconnect
+
     gnome40Extensions."unite@hardpixel.eu"
     gnome40Extensions."Vitals@CoreCoding.com"
   ];

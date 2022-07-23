@@ -69,7 +69,6 @@
     pkgs.jetbrains.idea-community
   ];
 
-
   programs.zsh.shellAliases = {
     "cat" = "bat";
     "ls" = "exa";

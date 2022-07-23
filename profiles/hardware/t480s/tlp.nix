@@ -56,8 +56,8 @@
       PCIE_ASPM_ON_AC = "performance";
       PCIE_ASPM_ON_BAT = "default";
 
-      INTEL_GPU_MAX_FREQ_ON_BAT = 450;
-      INTEL_GPU_MIN_FREQ_ON_BAT = 350;
+      # INTEL_GPU_MAX_FREQ_ON_BAT = 450;
+      # INTEL_GPU_MIN_FREQ_ON_BAT = 350;
 
       WIFI_PWR_ON_AC = "off";
       WIFI_PWR_ON_BAT = "on";

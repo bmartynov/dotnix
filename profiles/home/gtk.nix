@@ -1,8 +1,8 @@
-{
+{ config, ... }: {
   gtk = {
     enable = true;
-    theme = { name = "Adwaita"; };
-    iconTheme = { name = "Obsidian-Gray"; };
+    theme = { name = "Nordic-darker"; };
+    iconTheme = { name = "Nordzy"; };
     gtk3 = {
       extraCss = ''
         window.ssd headerbar.titlebar {
@@ -17,11 +17,6 @@
             min-width: 0;
         }
       '';
-      bookmarks = [
-        "file:///home/boris/projects/c"
-        "file:///home/boris/projects/ts"
-        "file:///home/boris/projects/rust"
-      ];
       extraConfig = { "gtk-cursor-theme-name" = "Breeze"; };
     };
   };

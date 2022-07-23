@@ -14,6 +14,8 @@
     inputs.self.profiles.hardware.t480s.tlp
     inputs.self.profiles.hardware.intel.gpu
 
+    inputs.self.profiles.workspace.gnome
+
     inputs.self.profiles.security.boris
   ];
 
@@ -23,30 +25,18 @@
 
   time.timeZone = "Asia/Dubai";
 
-  security.pam.services.swaylock = {
-    text = ''
-      auth include login
-    '';
-  };
-
   environment.systemPackages = with pkgs; [ acpi qt5.qtwayland gparted ];
 
-  xdg.portal = {
-    enable = true;
-    gtkUsePortal = true;
-    extraPortals = with pkgs; [ xdg-desktop-portal-gtk xdg-desktop-portal-wlr ];
-  };
-
-  programs.dconf.enable = true;
-  services.dbus.packages = with pkgs; [ dconf ];
-  programs.ssh.startAgent = true;
+  #programs.dconf.enable = true;
+  #services.dbus.packages = with pkgs; [ dconf ];
+  #programs.ssh.startAgent = true;
 
   services.fwupd.enable = true;
-  services.gnome.gnome-keyring.enable = true;
+  #services.gnome.gnome-keyring.enable = true;
 
+  services.blueman.enable = true;
   services.thermald.enable = true;
   services.upower.enable = true;
-  services.gvfs.enable = true;
   services.udev.packages = [ pkgs.android-udev-rules ];
 
   # thinkpad t480s trackpoint issue (freezing)

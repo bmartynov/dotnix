@@ -12,9 +12,7 @@
     intel = { gpu = ./hardware/intel/gpu.nix; };
   };
 
-  workspace = {
-    gnome = ./workspace/gnome.nix;
-  };
+  workspace = { gnome = ./workspace/gnome.nix; };
 
   security = import ./security.nix;
   users_staff = import ./users_staff.nix;
