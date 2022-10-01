@@ -34,8 +34,8 @@ let
     }'';
 in {
   programs.firefox = {
-    enable = true;
-    package = pkgs.firefox-wayland;
+    enable = pkgs.stdenv.isLinux;
+    package = pkgs.firefox;
     profiles.default = {
       id = 0;
       userChrome = userChrome;

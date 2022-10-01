@@ -1,5 +1,5 @@
 switch-home:
-	home-manager  --flake . switch
+	home-manager  --flake . switch -b backup
 
 switch-system-borg:
 	nixos-rebuild switch --use-remote-sudo --flake .#borg

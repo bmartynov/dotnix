@@ -16,6 +16,8 @@
     ## gnupg
     GNUPGHOME = "${config.xdg.dataHome}/gnupg";
 
+    PATH = "$PATH:/opt/homebrew/bin:/Users/boris/.local/share/cargo/bin";
+
     ## less history file 
     "LESSHISTFILE" = "-";
 

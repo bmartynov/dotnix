@@ -17,9 +17,15 @@
     };
 
     nix-colors = { url = "github:misterio77/nix-colors"; };
+
+    # darwin staff
+    darwin = {
+      url = "github:lnl7/nix-darwin/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, nix-colors, ... }@inputs:
+  outputs = { self, nixpkgs, darwin, home-manager, nix-colors, ... }@inputs:
     let
       pkgsFor = system:
         import inputs.nixpkgs {
@@ -47,6 +53,22 @@
           specialArgs = { inherit inputs; };
         };
 
+      mkDarwinSystem = system: name:
+        let pkgs = pkgsFor system;
+        in darwin.lib.darwinSystem {
+          inherit system;
+          modules = [
+            (import (./machines + "/${name}") {
+              inputs = inputs;
+              lib = inputs.nixpkgs.lib;
+              device = name;
+              inherit pkgs;
+            })
+            { nixpkgs.config.allowUnsupportedSystem = true; }
+          ];
+          specialArgs = { inherit inputs; };
+        };
+
       mkHome = system: username:
         home-manager.lib.homeManagerConfiguration {
           pkgs = pkgsFor system;
@@ -58,10 +80,14 @@
 
       # 
       legacyPackages.x86_64-linux = pkgsFor "x86_64-linux";
+      legacyPackages.aarch64-darwin = pkgsFor "aarch64-darwin";
 
       # dev shell
       devShell.x86_64-linux = with nixpkgs.legacyPackages.x86_64-linux;
-        mkShell { buildInputs = [ nixfmt ]; };
+        mkShell { buildInputs = [ nixfmt nixpkgs-fmt rnix-lsp ]; };
+
+      devShell.aarch64-darwin = with nixpkgs.legacyPackages.aarch64-darwin;
+        mkShell { buildInputs = [ nixfmt nixpkgs-fmt rnix-lsp ]; };
 
       nixosConfigurations = {
         borg = mkSystem "x86_64-linux" "borg";
@@ -69,8 +95,11 @@
       };
 
       homeConfigurations = {
-        boris = mkHome "x86_64-linux" "boris";
+        boris-linux = mkHome "x86_64-linux" "boris";
+        boris = mkHome "aarch64-darwin" "boris";
         alexandra = mkHome "x86_64-linux" "alexandra";
       };
+
+      darwinConfigurations = { kirk = mkDarwinSystem "aarch64-darwin" "kirk"; };
     };
 }
