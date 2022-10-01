@@ -29,7 +29,7 @@ let
   ];
 in {
   programs.vscode = {
-    enable = true;
+    enable = pkgs.stdenv.isLinux;
     package = pkgs.vscode;
     extensions = with pkgs.vscode-extensions;
       [

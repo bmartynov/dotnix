@@ -1,5 +1,11 @@
-{ pkgs, nix-colors, ... }: {
-  require = [
+{ lib, stdenv, pkgs, nix-colors, ... }:
+with pkgs.stdenv;
+
+let
+  homeDirectory = user: if isDarwin then "/Users/${user}" else "/home/${user}";
+
+in rec {
+  imports = [
     # terminal
     ./home/zsh.nix
     ./home/ssh.nix
@@ -11,63 +17,81 @@
     ./home/alacritty.nix
     ./home/session_variables.nix
 
-    # workspace
-    ./home/xdg.nix
-    ./home/gtk.nix
-    ./home/sway.nix
-    ./home/gnome.nix
-    ./home/fonts.nix
-    ./home/firefox.nix
+    # linux specific
+    # ./home/xdg.nix
+    # ./home/vscode.nix
+    # ./home/firefox.nix
 
-    # development
-    ./home/vscode.nix
+    # ./home/firefox.nix
 
     nix-colors.homeManagerModule
   ];
 
+  # linux specific
+  # ++ lib.optionals pkgs.stdenv.isLinux [
+  # development
+  #  
+
+  # workspace
+  #  
+  #  ./home/gtk.nix
+  #  ./home/sway.nix
+  #  ./home/gnome.nix
+  #  ./home/fonts.nix
+  #  
+  #];
+
   home.username = "boris";
-  home.homeDirectory = "/home/boris";
+  home.homeDirectory = homeDirectory home.username;
   home.stateVersion = "22.05";
 
   colorscheme = nix-colors.colorSchemes.nord;
 
-  home.packages = with pkgs; [
-    bat
-    exa
-    fd
-    hyperfine
-    ripgrep
-    tokei
+  home.packages = with pkgs;
+    [
+      jq
 
-    easyeffects
+      git
 
-    jq
+      bat
+      exa
+      fd
 
-    git
+      gh
 
-    google-chrome
+      hyperfine
+      ripgrep
+      tokei
 
-    networkmanagerapplet
+      # kube
+      kubectl
 
-    # workspace
-    slack
-    tdesktop
-    keepassxc
+      docker-compose
 
-    dconf
+      # linux specific
+    ] ++ lib.optionals isLinux [
+      easyeffects
+      google-chrome
 
-    transmission-gtk
+      workspace
+      slack
+      tdesktop
+      keepassxc
 
-    wireshark
+      dconf
 
-    anydesk
+      transmission-gtk
 
-    libreoffice
+      wireshark
 
-    # development
-    pkgs.jetbrains.goland
-    pkgs.jetbrains.idea-community
-  ];
+      anydesk
+
+      libreoffice
+
+      # development
+      pkgs.jetbrains.goland
+      pkgs.jetbrains.idea-community
+    ];
 
   programs.zsh.shellAliases = {
     "cat" = "bat";
@@ -75,10 +99,7 @@
   };
 
   # bookmarks
-  gtk.gtk3.bookmarks = [
-    "file:///home/boris/work"
-    "file:///home/boris/projects"
-  ];
+  # gtk.gtk3.bookmarks = [ "file:///home/boris/work" "file:///home/boris/projects" ];
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

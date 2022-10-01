@@ -1,4 +1,21 @@
-{ lib, inputs, ... }: {
+{ lib, inputs, pkgs, ... }:
+let
+  inherit (pkgs.stdenv) isLinux isDarwin;
+
+  gcLinux = {
+    automatic = true;
+    dates = "weekly";
+  };
+
+  gcDarwin = {
+    automatic = true;
+    interval = {
+      Hour = 3;
+      Minute = 15;
+    };
+  };
+
+in {
   nix = rec {
     settings = {
       trusted-users = [ "root" "@wheel" ];
@@ -15,19 +32,17 @@
 
     nrBuildUsers = 16;
 
-    optimise.automatic = true;
-
     # garbage collection
     gc = {
-      automatic = true;
-      dates = "weekly";
       options = "--delete-older-than 7d";
-    };
+    } // lib.optionalAttrs isLinux gcLinux
+      // lib.optionalAttrs isDarwin gcDarwin;
 
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
-  };
+  } // lib.optionalAttrs isLinux { optimise.automatic = true; };
+
   environment.etc.nixpkgs.source = inputs.nixpkgs;
   environment.etc.self.source = inputs.self;
 }

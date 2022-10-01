@@ -1,6 +1,6 @@
-{
+{ pkgs, ... }: {
   xdg = {
-    enable = true;
+    enable = pkgs.stdenv.isLinux;
     userDirs = {
       enable = true;
       download = "$HOME/downloads";

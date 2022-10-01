@@ -12,3 +12,7 @@ nixos-rebuild switch --flake .
 nix build .#homeConfigurations.boris.activationPackage && ./result/activate
 `
 
+
+nix build .#darwinConfigurations.kirk.system
+
+./result/sw/bin/darwin-rebuild switch --flake .
